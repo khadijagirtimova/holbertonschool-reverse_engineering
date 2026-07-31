@@ -1,1 +1,1 @@
-command.txt
+readelf -S task1`
