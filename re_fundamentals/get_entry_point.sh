@@ -41,9 +41,9 @@ fi
 # 4. Extract the required data using readelf
 header_info="$(readelf -h "$file_name")"
 
-magic_number="$(echo "$header_info" | grep "Magic:" | sed 's/.*Magic:[[:space:]]*//')"
+magic_number="$(echo "$header_info" | grep "Magic:" | sed 's/.*Magic:[[:space:]]*//' | sed 's/[[:space:]]*$//')"
 class="$(echo "$header_info" | grep "Class:" | awk '{print $2}')"
-byte_order="$(echo "$header_info" | grep "Data:" | sed 's/.*Data:[[:space:]]*//')"
+byte_order="$(echo "$header_info" | grep "Data:" | awk -F', ' '{print $2}')"
 entry_point_address="$(echo "$header_info" | grep "Entry point address:" | awk '{print $NF}')"
 
 # 5. Use messages.sh to format and display the output
